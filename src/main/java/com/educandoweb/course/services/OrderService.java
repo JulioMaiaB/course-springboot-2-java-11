@@ -23,4 +23,10 @@ public class OrderService {
 		Optional<Order> obj = repository.findById(id);
 		return obj.get();
 	}
+	
+	public Order create(Order order) {
+		repository.save(order);
+		return order;
+	}
+	
 }
