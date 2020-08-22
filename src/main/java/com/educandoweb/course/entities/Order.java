@@ -16,14 +16,10 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
-@Entity
+@Getter @Setter @EqualsAndHashCode
+@Entity 
 @Table(name = "tb_order")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -33,11 +29,15 @@ public class Order implements Serializable {
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant momemnt;
 	private Integer orderStatus;
-	//O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe e DB). Para o mundo externo e um OrderStatus
+	// O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe
+	// e DB). Para o mundo externo e um OrderStatus
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
+
+	public Order() {
+	}
 
 	public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
 		this.id = id;
@@ -45,14 +45,14 @@ public class Order implements Serializable {
 		setOrderStatus(orderStatus);
 		this.client = client;
 	}
-	
-	// Getters e Setters personalizados para o tipo Enum. 
+
+	// Getters e Setters personalizados para o tipo Enum.
 	public OrderStatus getOrderStatus() {
 		return OrderStatus.valueOf(orderStatus);
 	}
-	
+
 	public void setOrderStatus(OrderStatus orderStatus) {
-		if(orderStatus != null) {
+		if (orderStatus != null) {
 			this.orderStatus = orderStatus.getCode();
 		}
 	}

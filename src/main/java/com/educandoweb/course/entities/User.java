@@ -14,9 +14,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @EqualsAndHashCode
 @Entity
 @Table(name = "tb_user")
@@ -34,6 +32,9 @@ public class User implements Serializable {
 	@JsonIgnore
 	private List<Order> orders = new ArrayList<>();
 
+	public User() {
+	}
+	
 	public User(Long id, String name, String email, String phone, String password) {
 		this.id = id;
 		this.name = name;
