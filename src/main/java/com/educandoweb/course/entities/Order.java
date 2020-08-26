@@ -31,6 +31,9 @@ public class Order implements Serializable {
 	private Integer orderStatus;
 	//O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe e DB). Para o mundo externo e um OrderStatus
 	
+	// O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe
+	// e DB). Para o mundo externo e um OrderStatus
+
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	@JsonManagedReference //indica que sera serializado normalmente
@@ -41,7 +44,7 @@ public class Order implements Serializable {
 	
 	public Order() {}
 	
-	public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
+public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
 		this.id = id;
 		this.momemnt = momemnt;
 		setOrderStatus(orderStatus);
@@ -72,13 +75,13 @@ public class Order implements Serializable {
 		this.client = client;
 	}
 
-	// Getters e Setters personalizados para o tipo Enum. 
+	// Getters e Setters personalizados para o tipo Enum.
 	public OrderStatus getOrderStatus() {
 		return OrderStatus.valueOf(orderStatus);
 	}
-	
+
 	public void setOrderStatus(OrderStatus orderStatus) {
-		if(orderStatus != null) {
+		if (orderStatus != null) {
 			this.orderStatus = orderStatus.getCode();
 		}
 	}

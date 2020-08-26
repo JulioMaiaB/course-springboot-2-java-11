@@ -15,11 +15,12 @@ import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 @Entity
 @Table(name = "tb_category")
 public class Category implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
@@ -28,8 +29,7 @@ public class Category implements Serializable {
 	@JsonIgnore
 	private Set<Product> products = new HashSet<>();
 	
-	public Category() {
-	}
+	public Category() {}
 	
 	public Category(Long id, String name) {
 		this.id = id;
@@ -80,5 +80,4 @@ public class Category implements Serializable {
 			return false;
 		return true;
 	}
-	
 }
