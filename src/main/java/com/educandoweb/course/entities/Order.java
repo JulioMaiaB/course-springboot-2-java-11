@@ -2,6 +2,8 @@ package com.educandoweb.course.entities;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,20 +11,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.educandoweb.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
-@NoArgsConstructor
-@Getter
-@Setter
-@EqualsAndHashCode
 @Entity
 @Table(name = "tb_order")
 public class Order implements Serializable {
@@ -34,11 +30,17 @@ public class Order implements Serializable {
 	private Instant momemnt;
 	private Integer orderStatus;
 	//O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe e DB). Para o mundo externo e um OrderStatus
-
+	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
+	@JsonManagedReference //indica que sera serializado normalmente
 	private User client;
-
+	
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
+	
+	public Order() {}
+	
 	public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
 		this.id = id;
 		this.momemnt = momemnt;
@@ -46,6 +48,30 @@ public class Order implements Serializable {
 		this.client = client;
 	}
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Instant getMomemnt() {
+		return momemnt;
+	}
+
+	public void setMomemnt(Instant momemnt) {
+		this.momemnt = momemnt;
+	}
+
+	public User getClient() {
+		return client;
+	}
+
+	public void setClient(User client) {
+		this.client = client;
+	}
+
 	// Getters e Setters personalizados para o tipo Enum. 
 	public OrderStatus getOrderStatus() {
 		return OrderStatus.valueOf(orderStatus);
@@ -56,4 +82,35 @@ public class Order implements Serializable {
 			this.orderStatus = orderStatus.getCode();
 		}
 	}
+	
+	public Set<OrderItem> getItems() {
+		return this.items;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Order other = (Order) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
+	
+	
 }
