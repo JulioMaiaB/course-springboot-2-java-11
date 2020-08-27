@@ -30,12 +30,8 @@ public class Order implements Serializable {
 	private Long id;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-	private Integer orderStatus;
-	//O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe e DB). Para o mundo externo e um OrderStatus
+	private Integer orderStatus; //O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe e DB). Para o mundo externo e um OrderStatus
 	
-	// O tratamento como Integer (orderstatus) e apenas para o mundo interno (classe
-	// e DB). Para o mundo externo e um OrderStatus
-
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	@JsonManagedReference //indica que sera serializado normalmente
@@ -49,7 +45,7 @@ public class Order implements Serializable {
 	
 	public Order() {}
 	
-public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
+	public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
 		this.id = id;
 		this.moment = momemnt;
 		setOrderStatus(orderStatus);
@@ -103,13 +99,13 @@ public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
 		return this.items;
 	}
 	
-//	public Double getTotal() {
-//		double sum = 0.0;
-//		for (OrderItem x : items) {
-//			sum += x.getSubTotal();
-//		}
-//		return sum;
-//	}
+	public Double getTotal() {
+		double sum = 0.0;
+		for (OrderItem x : items) {
+			sum += x.getSubTotal();
+		}
+		return sum;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -135,6 +131,4 @@ public Order(Long id, Instant momemnt, OrderStatus orderStatus, User client) {
 			return false;
 		return true;
 	}
-	
-	
 }

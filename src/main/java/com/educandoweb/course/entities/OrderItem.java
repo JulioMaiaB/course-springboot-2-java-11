@@ -63,10 +63,10 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 	
-	// Na plataforma Java EE, o que vale e o get.
-//	public Double getSubTotal() {
-//		return price * quantity;
-//	}
+//	 Na plataforma Java EE, o que vale e o get.
+	public Double getSubTotal() {
+		return price * quantity;
+	}
 	
 	@Override
 	public int hashCode() {
@@ -92,5 +92,4 @@ public class OrderItem implements Serializable {
 			return false;
 		return true;
 	}
-	
 }
