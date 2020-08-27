@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tb_user")
@@ -27,7 +27,7 @@ public class User implements Serializable {
 	
 	//um usuario para muitos pedidos.
 	@OneToMany(mappedBy = "client")
-	@JsonBackReference //o dado nao sera serializado
+	@JsonIgnore
 	private List<Order> orders = new ArrayList<>();
 	
 	public User() {}

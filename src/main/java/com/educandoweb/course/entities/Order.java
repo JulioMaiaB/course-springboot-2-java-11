@@ -18,7 +18,6 @@ import javax.persistence.Table;
 
 import com.educandoweb.course.entities.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 
 @Entity
@@ -34,7 +33,6 @@ public class Order implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name = "client_id")
-	@JsonManagedReference //indica que sera serializado normalmente
 	private User client;
 	
 	@OneToMany(mappedBy = "id.order")
