@@ -29,7 +29,7 @@ public class OrderItem implements Serializable {
 		this.price = price;
 	}
 	
-	// Os Getters e Setters do ID sempre manipulam a chave primaria composta embutida (@EmbeddableId).
+	// Os Getters e Setters do ID sempre manipulam a chave primaria composta embutida (@EmbeddedId).
 	@JsonIgnore
 	public Order getOrder() {
 		return id.getOrder();

@@ -22,7 +22,7 @@ import com.educandoweb.course.repositories.ProductRepository;
 import com.educandoweb.course.repositories.UserRepository;
 
 @Configuration
-@Profile("test")
+@Profile("test") //so executa com o profile "test" esta sendo utilizado.
 public class TestConfig implements CommandLineRunner {
 
 	@Autowired
@@ -55,7 +55,8 @@ public class TestConfig implements CommandLineRunner {
 
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		productRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
-
+		
+		// Associa produtos com categorias.
 		p1.getCategories().add(cat2);
 		p2.getCategories().add(cat1);
 		p2.getCategories().add(cat3);

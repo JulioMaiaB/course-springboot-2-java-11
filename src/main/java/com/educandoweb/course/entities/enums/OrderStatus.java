@@ -1,7 +1,8 @@
 package com.educandoweb.course.entities.enums;
 
 public enum OrderStatus {
-
+	
+	// Ja "instancia" os enums.
 	WAITING_PAYMENT(1), PAID(2), SHIPPED(3), DELIVERED(4), CANCELED(5);
 
 	// Atributos do Enum.
